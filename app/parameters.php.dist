@@ -1,0 +1,11 @@
+<?php
+
+return [
+    'database' => [
+        'driver' => 'pdo_mysql',
+        'dbname' => 'managed_content_node',
+        'user' => 'root',
+        'password' => '',
+        'host' => 'localhost'
+    ]
+];

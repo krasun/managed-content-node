@@ -24,14 +24,15 @@ class PageRepository
     }
 
     /**
+     * @param \DateTime $date
      * @param string $slug
      *
      * @return Page|null
      */
-    public function findOneBySlug($slug)
+    public function findOneByDateAndSlug(\DateTime $date, $slug)
     {
         $pageRow = $this->connection->fetchAssoc(
-            'SELECT `slug`, `title`, `content` FROM `managed_content_node_page` WHERE `slug` = :slug LIMIT 1',
+            'SELECT `slug`, `title`, `content`, `published_at` FROM `managed_content_node_page` WHERE `slug` = :slug LIMIT 1',
             ['slug' => $slug]
         );
 

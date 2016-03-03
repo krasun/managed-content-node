@@ -14,7 +14,7 @@ class AppKernel implements RequestHandlerInterface
     /**
      * @var RequestHandlerInterface[]
      */
-    private $handlers;
+    private $handlers = [];
 
     /**
      * @param RequestHandlerInterface $handler

@@ -4,6 +4,7 @@ CREATE TABLE `managed_content_node_page` (
   `slug` CHAR (80) NOT NULL,
   `title` VARCHAR (100) NOT NULL,
   `content` TEXT NOT NULL,
+  `published_at` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
