@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'locale' => 'ru',
     'database' => [
         'driver' => 'pdo_mysql',
         'dbname' => 'managed_content_node',

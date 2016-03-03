@@ -58,8 +58,9 @@ class GetPageRequestHandler implements RequestHandlerInterface
     public function handle(Request $request)
     {
         preg_match(self::ROUTE_REGEX, urldecode($request->getPathInfo()), $parameters);
+        list($pathInfo, $year, $month, $day, $slug) = $parameters;
 
-        $page = $this->pageRepository->findOneByDateAndSlug(new \DateTime(), 'asd');
+        $page = $this->pageRepository->findOneByDateAndSlug((new \DateTime())->setDate($year, $month, $day), $slug);
         if (null === $page) {
             return new Response('', Response::HTTP_NOT_FOUND);
         }

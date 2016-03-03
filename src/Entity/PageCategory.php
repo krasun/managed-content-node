@@ -13,11 +13,18 @@ class PageCategory
     private $slug;
 
     /**
-     * @param string $slug
+     * @var string
      */
-    public function __construct($slug)
+    private $title;
+
+    /**
+     * @param string $slug
+     * @param string $title
+     */
+    public function __construct($slug, $title)
     {
         $this->slug = $slug;
+        $this->title = $title;
     }
 
     /**
@@ -26,5 +33,13 @@ class PageCategory
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 }
