@@ -9,7 +9,6 @@ $templating = new \Symfony\Component\Templating\PhpEngine(
     $loader
 );
 
-
 $templating->addHelpers([
     new \Symfony\Component\Templating\Helper\SlotsHelper(),
     new \Knp\Bundle\TimeBundle\Templating\Helper\TimeHelper(
@@ -26,8 +25,15 @@ $pageCategoryRepository = new \Asopeli\ManagedContentNode\Entity\Repository\Page
 
 $appKernel = (new \Asopeli\ManagedContentNode\AppKernel())
     ->addHandler(
+        new \Asopeli\ManagedContentNode\RequestHandler\GetIndexRequestHandler($templating)
+    )
+    ->addHandler(
         new \Asopeli\ManagedContentNode\RequestHandler\GetPageRequestHandler($pageRepository, $templating)
-    );
+    )
+    ->addHandler(
+        new \Asopeli\ManagedContentNode\RequestHandler\GetPagesRequestHandler()
+    )
+;
 
 $response = $appKernel->handle(\Symfony\Component\HttpFoundation\Request::createFromGlobals());
 $response->send();

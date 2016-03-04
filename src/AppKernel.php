@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Entry point.
  */
-class AppKernel implements RequestHandlerInterface
+class AppKernel
 {
     /**
      * @var RequestHandlerInterface[]
@@ -29,21 +29,11 @@ class AppKernel implements RequestHandlerInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function matches(Request $request)
-    {
-        foreach ($this->handlers as $handler) {
-            if ($handler->matches($request)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * {@inheritdoc}
+     * Handles request and returns response.
+     *
+     * @param Request $request
+     *
+     * @return Response
      */
     public function handle(Request $request)
     {
