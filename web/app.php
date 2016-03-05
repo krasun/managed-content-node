@@ -31,7 +31,7 @@ $appKernel = (new \Asopeli\ManagedContentNode\AppKernel())
         new \Asopeli\ManagedContentNode\RequestHandler\GetPageRequestHandler($pageRepository, $templating)
     )
     ->addHandler(
-        new \Asopeli\ManagedContentNode\RequestHandler\GetPagesRequestHandler()
+        new \Asopeli\ManagedContentNode\RequestHandler\GetPagesRequestHandler($pageRepository, $pageCategoryRepository, $templating)
     )
 ;
 

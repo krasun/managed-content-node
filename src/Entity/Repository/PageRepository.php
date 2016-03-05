@@ -66,13 +66,18 @@ class PageRepository
 
     /**
      * @param string $pageCategorySlug
-     * @param int $offset
-     * @param int $limit
+     * @param int|null $offset
+     * @param int|null $limit
      *
      * @return Page[]
      */
     public function findByPageCategorySlug($pageCategorySlug, $offset = 0, $limit = 10)
     {
+        // @todo do not apply limits for null variables
+        if ($limit == null) {
+            $limit = 100000;
+        }
+
         $pageRows = $this->connection->fetchAll(
             'SELECT
                 `page`.`slug`,

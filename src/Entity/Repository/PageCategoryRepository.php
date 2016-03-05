@@ -34,4 +34,26 @@ class PageCategoryRepository
             return new PageCategory($pageCategoryRow['slug'], $pageCategoryRow['title']);
         }, $pageCategoryRows);
     }
+
+    /**
+     * @param string $pageCategorySlug
+     *
+     * @return PageCategory|null
+     */
+    public function findOneBySlug($pageCategorySlug)
+    {
+        $pageCategoryRow = $this->connection->fetchAssoc(
+            'SELECT `slug`, `title`
+             FROM `managed_content_node_page_category`
+             WHERE `slug` = :pageCategorySlug
+             LIMIT 1',
+            ['pageCategorySlug' => $pageCategorySlug]
+        );
+
+        if (null === $pageCategoryRow) {
+            return null;
+        }
+
+        return new PageCategory($pageCategoryRow['slug'], $pageCategoryRow['title']);
+    }
 }
