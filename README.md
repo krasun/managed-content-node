@@ -1,0 +1,2 @@
+Managed Content Node 
+====================
