@@ -28,10 +28,10 @@ class PageCategoryRepository
      */
     public function findAll()
     {
-        $pageCategoryRows = $this->connection->fetchAll('SELECT `slug` FROM `managed_content_node_page_category`');
+        $pageCategoryRows = $this->connection->fetchAll('SELECT `slug`, `title` FROM `managed_content_node_page_category`');
 
         return array_map(function ($pageCategoryRow) {
-            return new PageCategory($pageCategoryRow['slug']);
+            return new PageCategory($pageCategoryRow['slug'], $pageCategoryRow['title']);
         }, $pageCategoryRows);
     }
 }

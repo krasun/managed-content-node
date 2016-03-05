@@ -25,7 +25,7 @@ $pageCategoryRepository = new \Asopeli\ManagedContentNode\Entity\Repository\Page
 
 $appKernel = (new \Asopeli\ManagedContentNode\AppKernel())
     ->addHandler(
-        new \Asopeli\ManagedContentNode\RequestHandler\GetIndexRequestHandler($templating)
+        new \Asopeli\ManagedContentNode\RequestHandler\GetIndexRequestHandler($pageRepository, $pageCategoryRepository, $templating)
     )
     ->addHandler(
         new \Asopeli\ManagedContentNode\RequestHandler\GetPageRequestHandler($pageRepository, $templating)

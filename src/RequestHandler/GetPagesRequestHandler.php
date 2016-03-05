@@ -16,7 +16,7 @@ class GetPagesRequestHandler implements RequestHandlerInterface
      */
     public function matches(Request $request)
     {
-        // TODO: Implement matches() method.
+        
     }
 
     /**

@@ -42,4 +42,14 @@ class PageCategory
     {
         return $this->title;
     }
+
+    /**
+     * @param PageCategory $another
+     *
+     * @return bool
+     */
+    public function equals(PageCategory $another)
+    {
+        return ($this->getSlug() == $another->getSlug());
+    }
 }
