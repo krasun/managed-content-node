@@ -1,6 +1,8 @@
 {
     "name": "asopeli/managed-content-node",
+    "type": "project",
     "description": "Managed content node",
+    "license": "MIT",
     "require": {
         "doctrine/dbal": "~2.5",
         "doctrine/cache": "~1.6",
@@ -15,10 +17,9 @@
     "config": {
         "bin-dir": "bin"
     },
-    "license": "MIT",
     "authors": [
         {
-            "name": "Dmitry Krasun",
+            "name": "Dmytro Krasun",
             "email": "krasun.net@gmail.com"
         }
     ],
