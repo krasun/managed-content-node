@@ -11,6 +11,15 @@
         category: <?php echo $this->escape($page->getPageCategory()->getTitle()) ?>
     </div>
 </div>
+
+<div id="pages-in-same-category">
+    <div><?php $page->getPageCategory()->getTitle() ?></div>
+    <?php foreach ($pagesInSameCategory as $pageInSameCategory): ?>
+        <?php if (! $pageInSameCategory->equals($page)): ?>
+            <div><?php echo $this->escape($pageInSameCategory->getTitle()) ?></div>
+        <?php endif ?>
+    <?php endforeach ?>
+</div>
 <?php $view['slots']->stop() ?>
 
 

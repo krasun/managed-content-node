@@ -87,4 +87,14 @@ class Page
     {
         return $this->pageCategory;
     }
+
+    /**
+     * @param Page $another
+     *
+     * @return bool
+     */
+    public function equals(Page $another)
+    {
+        return ($this->getSlug() == $another->getSlug());
+    }
 }

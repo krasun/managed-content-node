@@ -65,8 +65,10 @@ class GetPageRequestHandler implements RequestHandlerInterface
             return new Response('', Response::HTTP_NOT_FOUND);
         }
 
+        $pagesInSameCategory = $this->pageRepository->findByPageCategorySlug($page->getPageCategory()->getSlug());
+
         return new Response(
-            $this->templating->render('page.html.php', ['page' => $page])
+            $this->templating->render('page.html.php', ['page' => $page, 'pagesInSameCategory' => $pagesInSameCategory])
         );
     }
 }
