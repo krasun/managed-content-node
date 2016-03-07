@@ -33,6 +33,9 @@ $appKernel = (new \Asopeli\ManagedContentNode\AppKernel())
     ->addHandler(
         new \Asopeli\ManagedContentNode\RequestHandler\GetPagesRequestHandler($pageRepository, $pageCategoryRepository, $templating)
     )
+    ->addHandler(
+        new \Asopeli\ManagedContentNode\RequestHandler\GetSitemapHandler()
+    )
 ;
 
 $response = $appKernel->handle(\Symfony\Component\HttpFoundation\Request::createFromGlobals());
