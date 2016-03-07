@@ -18,7 +18,6 @@ $templating->addHelpers([
     )
 ]);
 
-
 $connection = \Doctrine\DBAL\DriverManager::getConnection($parameters['database'], new \Doctrine\DBAL\Configuration());
 $pageRepository = new \Asopeli\ManagedContentNode\Entity\Repository\PageRepository($connection);
 $pageCategoryRepository = new \Asopeli\ManagedContentNode\Entity\Repository\PageCategoryRepository($connection);

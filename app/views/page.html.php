@@ -1,5 +1,7 @@
 <?php $view->extend('layout.html.php') ?>
 
+<?php $view['slots']->start('title') ?><?php echo $this->escape($page->getTitle()) ?><?php $view['slots']->stop() ?>
+
 <?php $view['slots']->start('content') ?>
 <div id="page">
     <h1><?php echo $this->escape($page->getTitle()) ?></h1>
