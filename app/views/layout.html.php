@@ -5,7 +5,7 @@
     </head>
     <body>
         <header>
-            <div><a href="/">Homepage</a></div>
+            <div><a href="/"><?php echo $node['title'] ?></a></div>
         </header>
         <div id="content">
             <?php if ($view['slots']->has('content')): ?>

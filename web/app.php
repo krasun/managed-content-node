@@ -17,6 +17,9 @@ $templating->addHelpers([
         )
     )
 ]);
+foreach ($parameters['templateVariables'] as $variableName => $variableValue) {
+    $templating->addGlobal($variableName, $variableValue);
+}
 
 $connection = \Doctrine\DBAL\DriverManager::getConnection($parameters['database'], new \Doctrine\DBAL\Configuration());
 $pageRepository = new \Asopeli\ManagedContentNode\Entity\Repository\PageRepository($connection);

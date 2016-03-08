@@ -8,5 +8,10 @@ return [
         'user' => 'root',
         'password' => '',
         'host' => 'localhost'
+    ],
+    'templateVariables' => [
+        'node' => [
+            'title' => 'ManagedContentNode'
+        ]
     ]
 ];
