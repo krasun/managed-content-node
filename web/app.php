@@ -25,9 +25,23 @@ $connection = \Doctrine\DBAL\DriverManager::getConnection($parameters['database'
 $pageRepository = new \Asopeli\ManagedContentNode\Entity\Repository\PageRepository($connection);
 $pageCategoryRepository = new \Asopeli\ManagedContentNode\Entity\Repository\PageCategoryRepository($connection);
 
+
+
 $appKernel = (new \Asopeli\ManagedContentNode\AppKernel())
     ->addHandler(
         new \Asopeli\ManagedContentNode\RequestHandler\GetIndexRequestHandler($pageRepository, $pageCategoryRepository, $templating)
+    )
+    ->addHandler(
+        new \Asopeli\ManagedContentNode\RequestHandler\GetSitemapHandler()
+    )
+    ->addHandler(
+        new \Asopeli\ManagedContentNode\RequestHandler\PostPageRequestHandler()
+    )
+    ->addHandler(
+        new \Asopeli\ManagedContentNode\RequestHandler\PutPageRequestHandler()
+    )
+    ->addHandler(
+        new \Asopeli\ManagedContentNode\RequestHandler\DeletePageRequestHandler()
     )
     ->addHandler(
         new \Asopeli\ManagedContentNode\RequestHandler\GetPageRequestHandler($pageRepository, $templating)
@@ -36,7 +50,19 @@ $appKernel = (new \Asopeli\ManagedContentNode\AppKernel())
         new \Asopeli\ManagedContentNode\RequestHandler\GetPagesRequestHandler($pageRepository, $pageCategoryRepository, $templating)
     )
     ->addHandler(
-        new \Asopeli\ManagedContentNode\RequestHandler\GetSitemapHandler()
+        new \Asopeli\ManagedContentNode\RequestHandler\PostPageCategoryRequestHandler()
+    )
+    ->addHandler(
+        new \Asopeli\ManagedContentNode\RequestHandler\PutPageCategoryRequestHandler()
+    )
+    ->addHandler(
+        new \Asopeli\ManagedContentNode\RequestHandler\DeletePageCategoryRequestHandler()
+    )
+    ->addHandler(
+        new \Asopeli\ManagedContentNode\RequestHandler\GetPageCategoryRequestHandler()
+    )
+    ->addHandler(
+        new \Asopeli\ManagedContentNode\RequestHandler\GetPageCategoriesRequestHandler()
     )
 ;
 
