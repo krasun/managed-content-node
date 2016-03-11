@@ -1,0 +1,23 @@
+build:
+    environment:
+        php:
+            version: 5.5.9
+
+tools:
+  php_code_sniffer:
+    filter:
+      excluded-paths: [ tests/* ]
+    config:
+      standard: PSR2
+
+  php_analyzer:
+    filter:
+      excluded-paths: [ tests/* ]
+
+  php_sim:
+    filter:
+      excluded-paths: [ tests/* ]
+
+filter:
+  excluded_paths:
+    - vendor/*
