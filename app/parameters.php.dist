@@ -16,5 +16,8 @@ return [
             'title' => 'ManagedContentNode',
             'description' => 'Managed Content Node is simple CMS managed by API'
         ]
+    ],
+    'translations' => [
+        ['locale' => 'ru', 'format' => 'xliff', 'resource' => __DIR__.'/../vendor/knplabs/knp-time-bundle/Knp/Bundle/TimeBundle/Resources/translations/time.ru.xliff', 'domain' => 'time'],
     ]
 ];
