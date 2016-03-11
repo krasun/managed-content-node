@@ -19,5 +19,6 @@ return [
     ],
     'translations' => [
         ['locale' => 'ru', 'format' => 'xliff', 'resource' => __DIR__.'/../vendor/knplabs/knp-time-bundle/Knp/Bundle/TimeBundle/Resources/translations/time.ru.xliff', 'domain' => 'time'],
+        ['locale' => 'en', 'format' => 'xliff', 'resource' => __DIR__.'/../vendor/knplabs/knp-time-bundle/Knp/Bundle/TimeBundle/Resources/translations/time.en.xliff', 'domain' => 'time'],
     ]
 ];
