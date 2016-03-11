@@ -1,7 +1,8 @@
 <?php
 
 return [
-    'locale' => 'ru',
+    'locale' => 'en',
+    'charset' => 'UTF-8',
     'database' => [
         'driver' => 'pdo_mysql',
         'dbname' => 'managed_content_node',
@@ -10,8 +11,10 @@ return [
         'host' => 'localhost'
     ],
     'templateVariables' => [
+        'charset' => 'UTF-8',
         'node' => [
-            'title' => 'ManagedContentNode'
+            'title' => 'ManagedContentNode',
+            'description' => 'Managed Content Node is simple CMS managed by API'
         ]
     ]
 ];

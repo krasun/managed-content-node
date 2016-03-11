@@ -45,7 +45,7 @@ class PageRepository
                 `managed_content_node_page` `page` JOIN `managed_content_node_page_category` `page_category`
                     ON `page`.`page_category_slug` = `page_category`.`slug`
              WHERE
-                `page`.`slug` = :slug AND `page`.`published_at` = :published_at
+                `page`.`slug` = :slug AND DATE(`page`.`published_at`) = :published_at
             ORDER BY `page`.`published_at` DESC
             LIMIT 1',
             ['slug' => $slug, 'published_at' => $date->format('Y-m-d')]

@@ -43,6 +43,8 @@ class AppKernel
             $loader
         );
 
+        $templating->setCharset($this->parameters['charset']);
+
         $templating->addHelpers([
             new \Symfony\Component\Templating\Helper\SlotsHelper(),
             new \Knp\Bundle\TimeBundle\Templating\Helper\TimeHelper(

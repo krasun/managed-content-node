@@ -1,13 +1,41 @@
 <?php $view->extend('layout.html.php') ?>
 
 <?php $view['slots']->start('content') ?>
-    <?php foreach ($pageCategories as $pageCategory): ?>
-        <div><?php echo $this->escape($pageCategory->getTitle()) ?></div>
-        <?php foreach ($pages as $page): ?>
-            <?php if ($page->getPageCategory()->equals($pageCategory)): ?>
-                <div><?php echo $this->escape($page->getTitle()) ?></div>
-            <?php endif?>
-        <?php endforeach ?>
-    <?php endforeach ?>
+    <div class="row index">
+        <div class="col-lg-6">
+            <?php $index = 0 ?>
+            <?php foreach ($pageCategories as $pageCategory): ?>
+                <?php if ($index < ceil(count($pageCategories) / 2)): ?>
+                    <a href="/category/<?php echo $this->escape($pageCategory->getSlug()) ?>/"><h4><?php echo $this->escape($pageCategory->getTitle()) ?></h4></a>
+                    <ul class="list-unstyled">
+                        <?php foreach ($pages as $page): ?>
+                            <?php if ($page->getPageCategory()->equals($pageCategory)): ?>
+                                <li><a href="/<?php echo $this->escape($page->getPublishedAt()->format('Y/m/d') . '/' . $page->getSlug() . '/')  ?>"><?php echo $this->escape($page->getTitle()) ?></a></li>
+                            <?php endif?>
+                        <?php endforeach ?>
+                    </ul>
+                <?php endif ?>
+                <?php $index++ ?>
+            <?php endforeach ?>
+        </div>
+        <?php if (count($pageCategories) > 1): ?>
+            <div class="col-lg-6">
+                <?php $index = 0 ?>
+                <?php foreach ($pageCategories as $pageCategory): ?>
+                    <?php if ($index >= ceil(count($pageCategories) / 2)): ?>
+                        <a href="/category/<?php echo $this->escape($pageCategory->getSlug()) ?>/"><h4><?php echo $this->escape($pageCategory->getTitle()) ?></h4></a>
+                        <ul class="list-unstyled">
+                            <?php foreach ($pages as $page): ?>
+                                <?php if ($page->getPageCategory()->equals($pageCategory)): ?>
+                                    <li><a href="/<?php echo $this->escape($page->getPublishedAt()->format('Y/m/d') . '/' . $page->getSlug() . '/') ?>"><?php echo $this->escape($page->getTitle()) ?></a></li>
+                                <?php endif?>
+                            <?php endforeach ?>
+                        </ul>
+                    <?php endif ?>
+                    <?php $index++ ?>
+                <?php endforeach ?>
+            </div>
+        <?php endif ?>
+</div>
 <?php $view['slots']->stop() ?>
 
