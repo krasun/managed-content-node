@@ -7,6 +7,8 @@ use Asopeli\ManagedContentNode\Entity\Repository\PageRepository;
 use Asopeli\ManagedContentNode\Request\RequestHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouteCollectionBuilder;
 use Symfony\Component\Templating\EngineInterface;
 
 /**
@@ -50,7 +52,7 @@ class GetIndexRequestHandler implements RequestHandlerInterface
      */
     public function matches(Request $request)
     {
-        return $request->isMethod('GET') && ($request->getPathInfo() == '/');
+        return $request->isMethod('GET') && ($request->getPathInfo() == '/' || $request->getPathInfo() == '');
     }
 
     /**

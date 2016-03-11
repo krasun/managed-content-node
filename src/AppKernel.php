@@ -28,12 +28,14 @@ class AppKernel
     public function __construct(array $parameters)
     {
         $this->parameters = $parameters;
+
+        $this->boot();
     }
 
     /**
      * Boots application kernel.
      */
-    public function boot()
+    private function boot()
     {
         $loader = new \Symfony\Component\Templating\Loader\FilesystemLoader(__DIR__.'/../app/views/%name%');
         $templating = new \Symfony\Component\Templating\PhpEngine(
@@ -58,40 +60,40 @@ class AppKernel
         $pageCategoryRepository = new \Asopeli\ManagedContentNode\Entity\Repository\PageCategoryRepository($connection);
 
         $this
-            ->addHandler(
+            ->registerHandler(
                 new RequestHandler\GetIndexRequestHandler($pageRepository, $pageCategoryRepository, $templating)
             )
-            ->addHandler(
+            ->registerHandler(
                 new RequestHandler\GetSitemapHandler()
             )
-            ->addHandler(
+            ->registerHandler(
                 new RequestHandler\PostPageRequestHandler()
             )
-            ->addHandler(
+            ->registerHandler(
                 new RequestHandler\PutPageRequestHandler()
             )
-            ->addHandler(
+            ->registerHandler(
                 new RequestHandler\DeletePageRequestHandler()
             )
-            ->addHandler(
+            ->registerHandler(
                 new RequestHandler\GetPageRequestHandler($pageRepository, $templating)
             )
-            ->addHandler(
+            ->registerHandler(
                 new RequestHandler\GetPagesRequestHandler($pageRepository, $pageCategoryRepository, $templating)
             )
-            ->addHandler(
+            ->registerHandler(
                 new RequestHandler\PostPageCategoryRequestHandler()
             )
-            ->addHandler(
+            ->registerHandler(
                 new RequestHandler\PutPageCategoryRequestHandler()
             )
-            ->addHandler(
+            ->registerHandler(
                 new RequestHandler\DeletePageCategoryRequestHandler()
             )
-            ->addHandler(
+            ->registerHandler(
                 new RequestHandler\GetPageCategoryRequestHandler()
             )
-            ->addHandler(
+            ->registerHandler(
                 new RequestHandler\GetPageCategoriesRequestHandler()
             )
         ;
@@ -102,7 +104,7 @@ class AppKernel
      *
      * @return AppKernel
      */
-    public function addHandler(RequestHandlerInterface $handler)
+    public function registerHandler(RequestHandlerInterface $handler)
     {
         $this->handlers[] = $handler;
 
