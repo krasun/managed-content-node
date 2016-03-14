@@ -93,7 +93,7 @@ class AppKernel
                 new RequestHandler\PostPageCategoryRequestHandler($pageCategoryRepository)
             )
             ->registerHandler(
-                new RequestHandler\PutPageCategoryRequestHandler()
+                new RequestHandler\PutPageCategoryRequestHandler($pageCategoryRepository)
             )
             ->registerHandler(
                 new RequestHandler\DeletePageCategoryRequestHandler($pageCategoryRepository)

@@ -8,6 +8,11 @@ namespace Asopeli\ManagedContentNode\Entity;
 class Page
 {
     /**
+     * @var int
+     */
+    private $id;
+
+    /**
      * @var string
      */
     private $slug;
@@ -26,26 +31,35 @@ class Page
      * @var \DateTime
      */
     private $publishedAt;
-
     /**
      * @var PageCategory
      */
     private $pageCategory;
 
     /**
+     * @param int $id
      * @param string $slug
      * @param string $title
      * @param string $content
      * @param \DateTime $publishedAt
      * @param PageCategory $pageCategory
      */
-    public function __construct($slug, $title, $content, \DateTime $publishedAt, PageCategory $pageCategory)
+    public function __construct($id, $slug, $title, $content, \DateTime $publishedAt, PageCategory $pageCategory)
     {
+        $this->id = $id;
         $this->slug = $slug;
         $this->title = $title;
         $this->content = $content;
         $this->publishedAt = $publishedAt;
         $this->pageCategory = $pageCategory;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**

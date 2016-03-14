@@ -28,10 +28,12 @@ class PageCategoryRepository
      */
     public function findAll()
     {
-        $pageCategoryRows = $this->connection->fetchAll('SELECT `slug`, `title` FROM `managed_content_node_page_category`');
+        $pageCategoryRows = $this->connection->fetchAll(
+            'SELECT `id`, `slug`, `title` FROM `managed_content_node_page_category`'
+        );
 
         return array_map(function ($pageCategoryRow) {
-            return new PageCategory($pageCategoryRow['slug'], $pageCategoryRow['title']);
+            return new PageCategory($pageCategoryRow['id'], $pageCategoryRow['slug'], $pageCategoryRow['title']);
         }, $pageCategoryRows);
     }
 
@@ -43,7 +45,7 @@ class PageCategoryRepository
     public function findOneBySlug($pageCategorySlug)
     {
         $pageCategoryRow = $this->connection->fetchAssoc(
-            'SELECT `slug`, `title`
+            'SELECT `id`, `slug`, `title`
              FROM `managed_content_node_page_category`
              WHERE `slug` = :pageCategorySlug
              LIMIT 1',
@@ -54,7 +56,7 @@ class PageCategoryRepository
             return null;
         }
 
-        return new PageCategory($pageCategoryRow['slug'], $pageCategoryRow['title']);
+        return new PageCategory($pageCategoryRow['id'], $pageCategoryRow['slug'], $pageCategoryRow['title']);
     }
 
     /**
@@ -64,10 +66,25 @@ class PageCategoryRepository
      */
     public function store(PageCategory $pageCategory)
     {
-        $this->connection->executeQuery(
-            'REPLACE `managed_content_node_page_category` (`slug`, `title`) VALUES (:slug, :title)',
-            ['slug' => $pageCategory->getSlug(), 'title' => $pageCategory->getTitle()]
-        );
+        if ($pageCategory->getId()) {
+            $this->connection->update(
+                '`managed_content_node_page_category`',
+                ['slug' => $pageCategory->getSlug(), 'title' => $pageCategory->getTitle()],
+                ['id' => $pageCategory->getId()]
+            );
+        } else {
+            $this->connection->insert(
+                '`managed_content_node_page_category`',
+                ['slug' => $pageCategory->getSlug(), 'title' => $pageCategory->getTitle()]
+            );
+
+            $id = $this->connection->lastInsertId();
+            $reflectionProperty = new \ReflectionProperty(PageCategory::class, 'id');
+            $reflectionProperty->setAccessible(true);
+            $reflectionProperty->setValue($pageCategory, $id);
+        }
+
+        return $this;
     }
 
     /**

@@ -8,6 +8,11 @@ namespace Asopeli\ManagedContentNode\Entity;
 class PageCategory
 {
     /**
+     * @var int
+     */
+    private $id;
+
+    /**
      * @var string
      */
     private $slug;
@@ -18,13 +23,23 @@ class PageCategory
     private $title;
 
     /**
+     * @param int $id
      * @param string $slug
      * @param string $title
      */
-    public function __construct($slug, $title)
+    public function __construct($id, $slug, $title)
     {
+        $this->id = $id;
         $this->slug = $slug;
         $this->title = $title;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -59,6 +74,7 @@ class PageCategory
     public function toArray()
     {
         return [
+            'id' => $this->getId(),
             'slug' => $this->getSlug(),
             'title' => $this->getTitle(),
         ];

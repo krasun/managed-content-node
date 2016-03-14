@@ -35,15 +35,17 @@ class PageRepository
     {
         $pageRow = $this->connection->fetchAssoc(
             'SELECT
+                `page`.`id`,
                 `page`.`slug`,
                 `page`.`title`,
                 `page`.`content`,
                 `page`.`published_at`,
+                `page_category`.`id` `page_category_id`,
                 `page_category`.`slug` `page_category_slug`,
                 `page_category`.`title` `page_category_title`
              FROM
                 `managed_content_node_page` `page` JOIN `managed_content_node_page_category` `page_category`
-                    ON `page`.`page_category_slug` = `page_category`.`slug`
+                    ON `page`.`page_category_id` = `page_category`.`id`
              WHERE
                 `page`.`slug` = :slug AND DATE(`page`.`published_at`) = :published_at
             ORDER BY `page`.`published_at` DESC
@@ -56,11 +58,12 @@ class PageRepository
         }
 
         return new Page(
+            $pageRow['id'],
             $pageRow['slug'],
             $pageRow['title'],
             $pageRow['content'],
             new \DateTime($pageRow['published_at']),
-            new PageCategory($pageRow['page_category_slug'], $pageRow['page_category_title'])
+            new PageCategory($pageRow['page_category_id'], $pageRow['page_category_slug'], $pageRow['page_category_title'])
         );
     }
 
@@ -80,21 +83,23 @@ class PageRepository
 
         $pageRows = $this->connection->fetchAll(
             'SELECT
+                `page`.`id`,
                 `page`.`slug`,
                 `page`.`title`,
                 `page`.`content`,
                 `page`.`published_at`,
+                `page_category`.`id` `page_category_id`,
                 `page_category`.`slug` `page_category_slug`,
                 `page_category`.`title` `page_category_title`
              FROM
                 `managed_content_node_page` `page` JOIN `managed_content_node_page_category` `page_category`
-                    ON `page`.`page_category_slug` = `page_category`.`slug`
+                    ON `page`.`page_category_id` = `page_category`.`id`
              WHERE
                 `page`.`page_category_slug` = :pageCategorySlug
              ORDER BY `page`.`published_at` DESC
              LIMIT :offset, :limit
              ',
-            ['pageCategorySlug' => $pageCategorySlug, 'offset' => (int) $offset, 'limit' => (int) $limit],
+            ['pageCategorySlug' => $pageCategorySlug, 'offset' => (int)$offset, 'limit' => (int)$limit],
             ['pageCategorySlug' => Type::STRING, 'offset' => Type::INTEGER, 'limit' => Type::INTEGER]
         );
 
@@ -105,11 +110,12 @@ class PageRepository
         $pages = [];
         foreach ($pageRows as $pageRow) {
             $pages[] = new Page(
+                $pageRow['id'],
                 $pageRow['slug'],
                 $pageRow['title'],
                 $pageRow['content'],
                 new \DateTime($pageRow['published_at']),
-                new PageCategory($pageRow['page_category_slug'], $pageRow['page_category_title'])
+                new PageCategory($pageRow['page_category_id'], $pageRow['page_category_slug'], $pageRow['page_category_title'])
             );
         }
 
@@ -123,15 +129,17 @@ class PageRepository
     {
         $pageRows = $this->connection->fetchAll(
             'SELECT
+                `page`.`id`,
                 `page`.`slug`,
                 `page`.`title`,
                 `page`.`content`,
                 `page`.`published_at`,
+                `page_category`.`id` `page_category_id`,
                 `page_category`.`slug` `page_category_slug`,
                 `page_category`.`title` `page_category_title`
              FROM
                 `managed_content_node_page` `page` JOIN `managed_content_node_page_category` `page_category`
-                    ON `page`.`page_category_slug` = `page_category`.`slug`
+                    ON `page`.`page_category_id` = `page_category`.`id`
              ORDER BY `page`.`published_at` DESC
              '
         );
@@ -143,11 +151,12 @@ class PageRepository
         $pages = [];
         foreach ($pageRows as $pageRow) {
             $pages[] = new Page(
+                $pageRow['id'],
                 $pageRow['slug'],
                 $pageRow['title'],
                 $pageRow['content'],
                 new \DateTime($pageRow['published_at']),
-                new PageCategory($pageRow['page_category_slug'], $pageRow['page_category_title'])
+                new PageCategory($pageRow['page_category_id'], $pageRow['page_category_slug'], $pageRow['page_category_title'])
             );
         }
 
