@@ -46,7 +46,7 @@ class PostPageCategoryRequestHandler implements RequestHandlerInterface
     public function handle(Request $request)
     {
         $content = json_decode($request->getContent(), true);
-        $pageCategory = new PageCategory($content['slug'], $content['title']);
+        $pageCategory = new PageCategory(null, $content['slug'], $content['title']);
 
         $this->pageCategoryRepository->store($pageCategory);
 

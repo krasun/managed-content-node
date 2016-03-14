@@ -9,6 +9,8 @@ CREATE TABLE `managed_content_node_page_category` (
 
   PRIMARY KEY (`id`),
 
+  UNIQUE KEY (`slug`),
+
   INDEX (`slug`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -22,6 +24,8 @@ CREATE TABLE `managed_content_node_page` (
   `page_category_id` INT UNSIGNED NOT NULL,
 
   PRIMARY KEY (`id`),
+
+  UNIQUE KEY (`slug`),
 
   INDEX(`page_category_id`),
   INDEX(`slug`, `published_at`),

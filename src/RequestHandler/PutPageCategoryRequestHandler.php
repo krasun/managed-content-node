@@ -36,7 +36,7 @@ class PutPageCategoryRequestHandler implements RequestHandlerInterface
             $request->isMethod('PUT')
             && 'json' == $request->getContentType()
             && in_array('application/json', $request->getAcceptableContentTypes())
-            && preg_match('/^\/page-categories\/?$/', $request->getPathInfo())
+            && preg_match('/^\/page-categories\/(\d+)\/?$/', $request->getPathInfo())
         );
     }
 
@@ -45,8 +45,11 @@ class PutPageCategoryRequestHandler implements RequestHandlerInterface
      */
     public function handle(Request $request)
     {
+        preg_match('/^\/page-categories\/(\d+)\/?$/', $request->getPathInfo(), $parameters);
+        list($pathInfo, $id) = $parameters;
+
         $content = json_decode($request->getContent(), true);
-        $pageCategory = new PageCategory($content['slug'], $content['title']);
+        $pageCategory = new PageCategory((int) $id, $content['slug'], $content['title']);
 
         $this->pageCategoryRepository->store($pageCategory);
 
