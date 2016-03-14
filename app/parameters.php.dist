@@ -3,6 +3,7 @@
 return [
     'locale' => 'en',
     'charset' => 'UTF-8',
+    'apiKey' => 'VerySecretApiKeyForNodeManagement',
     'database' => [
         'driver' => 'pdo_mysql',
         'dbname' => 'managed_content_node',

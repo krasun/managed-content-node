@@ -74,13 +74,22 @@ class AppKernel
                 new RequestHandler\GetSitemapHandler()
             )
             ->registerHandler(
-                new RequestHandler\PostPageRequestHandler($pageRepository, $pageCategoryRepository)
+                new RequestHandler\SecuredRequestHandler(
+                    $this->parameters['apiKey'],
+                    new RequestHandler\PostPageRequestHandler($pageRepository, $pageCategoryRepository)
+                )
             )
             ->registerHandler(
-                new RequestHandler\PutPageRequestHandler($pageRepository, $pageCategoryRepository)
+                new RequestHandler\SecuredRequestHandler(
+                    $this->parameters['apiKey'],
+                    new RequestHandler\PutPageRequestHandler($pageRepository, $pageCategoryRepository)
+                )
             )
             ->registerHandler(
-                new RequestHandler\DeletePageRequestHandler($pageRepository)
+                new RequestHandler\SecuredRequestHandler(
+                    $this->parameters['apiKey'],
+                    new RequestHandler\DeletePageRequestHandler($pageRepository)
+                )
             )
             ->registerHandler(
                 new RequestHandler\GetPageRequestHandler($pageRepository, $templating)
@@ -89,13 +98,22 @@ class AppKernel
                 new RequestHandler\GetPagesRequestHandler($pageRepository, $pageCategoryRepository, $templating)
             )
             ->registerHandler(
-                new RequestHandler\PostPageCategoryRequestHandler($pageCategoryRepository)
+                new RequestHandler\SecuredRequestHandler(
+                    $this->parameters['apiKey'],
+                    new RequestHandler\PostPageCategoryRequestHandler($pageCategoryRepository)
+                )
             )
             ->registerHandler(
-                new RequestHandler\PutPageCategoryRequestHandler($pageCategoryRepository)
+                new RequestHandler\SecuredRequestHandler(
+                    $this->parameters['apiKey'],
+                    new RequestHandler\PutPageCategoryRequestHandler($pageCategoryRepository)
+                )
             )
             ->registerHandler(
-                new RequestHandler\DeletePageCategoryRequestHandler($pageCategoryRepository)
+                new RequestHandler\SecuredRequestHandler(
+                    $this->parameters['apiKey'],
+                    new RequestHandler\DeletePageCategoryRequestHandler($pageCategoryRepository)
+                )
             )
             ->registerHandler(
                 new RequestHandler\GetPageCategoryRequestHandler()
