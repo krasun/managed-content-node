@@ -90,7 +90,7 @@ class AppKernel
                 new RequestHandler\GetPagesRequestHandler($pageRepository, $pageCategoryRepository, $templating)
             )
             ->registerHandler(
-                new RequestHandler\PostPageCategoryRequestHandler()
+                new RequestHandler\PostPageCategoryRequestHandler($pageCategoryRepository)
             )
             ->registerHandler(
                 new RequestHandler\PutPageCategoryRequestHandler()

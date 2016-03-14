@@ -56,4 +56,17 @@ class PageCategoryRepository
 
         return new PageCategory($pageCategoryRow['slug'], $pageCategoryRow['title']);
     }
+
+    /**
+     * @param PageCategory $pageCategory
+     *
+     * @return PageCategoryRepository
+     */
+    public function store(PageCategory $pageCategory)
+    {
+        $this->connection->executeQuery(
+            'REPLACE `managed_content_node_page_category` (`slug`, `title`) VALUES (:slug, :title)',
+            ['slug' => $pageCategory->getSlug(), 'title' => $pageCategory->getTitle()]
+        );
+    }
 }

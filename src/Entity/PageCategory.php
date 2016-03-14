@@ -52,4 +52,15 @@ class PageCategory
     {
         return ($this->getSlug() == $another->getSlug());
     }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'slug' => $this->getSlug(),
+            'title' => $this->getTitle(),
+        ];
+    }
 }
