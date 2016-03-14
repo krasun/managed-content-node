@@ -2,6 +2,7 @@
 
 namespace Asopeli\ManagedContentNode\RequestHandler;
 
+use Asopeli\ManagedContentNode\Entity\Repository\PageCategoryRepository;
 use Asopeli\ManagedContentNode\Request\RequestHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,11 +13,30 @@ use Symfony\Component\HttpFoundation\Response;
 class DeletePageCategoryRequestHandler implements RequestHandlerInterface
 {
     /**
+     * @var PageCategoryRepository
+     */
+    private $pageCategoryRepository;
+
+    /**
+     * @param PageCategoryRepository $pageCategoryRepository
+     */
+    public function __construct(PageCategoryRepository $pageCategoryRepository)
+    {
+        $this->pageCategoryRepository = $pageCategoryRepository;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function matches(Request $request)
     {
-        // TODO: Implement matches() method.
+        return (
+            $request->isMethod('DELETE')
+            && 'json' == $request->getContentType()
+            && in_array('application/json', $request->getAcceptableContentTypes())
+            && preg_match('/^\/page-categories\/([A-Za-z0-9А-яЁё]+)\/?$/', $request->getPathInfo())
+        );
+
     }
 
     /**
@@ -24,6 +44,11 @@ class DeletePageCategoryRequestHandler implements RequestHandlerInterface
      */
     public function handle(Request $request)
     {
-        // TODO: Implement handle() method.
+        preg_match('/^\/page-categories\/([A-Za-z0-9А-яЁё]+)\/?$/', $request->getPathInfo(), $parameters);
+        list($pathInfo, $slug) = $parameters;
+
+        $this->pageCategoryRepository->deleteBySlug($slug);
+
+        return new Response('', 204);
     }
 }

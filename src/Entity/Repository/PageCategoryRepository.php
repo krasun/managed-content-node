@@ -69,4 +69,16 @@ class PageCategoryRepository
             ['slug' => $pageCategory->getSlug(), 'title' => $pageCategory->getTitle()]
         );
     }
+
+    /**
+     * @param string $slug
+     *
+     * @return PageCategoryRepository
+     */
+    public function deleteBySlug($slug)
+    {
+        $this->connection->delete('`managed_content_node_page_category`', ['slug' => $slug]);
+
+        return $this;
+    }
 }

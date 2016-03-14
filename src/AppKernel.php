@@ -96,7 +96,7 @@ class AppKernel
                 new RequestHandler\PutPageCategoryRequestHandler()
             )
             ->registerHandler(
-                new RequestHandler\DeletePageCategoryRequestHandler()
+                new RequestHandler\DeletePageCategoryRequestHandler($pageCategoryRepository)
             )
             ->registerHandler(
                 new RequestHandler\GetPageCategoryRequestHandler()

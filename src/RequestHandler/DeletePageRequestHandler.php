@@ -16,7 +16,7 @@ class DeletePageRequestHandler implements RequestHandlerInterface
      */
     public function matches(Request $request)
     {
-        return ($request->isMethod('DELETE') && $request->getPathInfo());
+//        return ($request->isMethod('DELETE') && $request->getPathInfo());
     }
 
     /**
