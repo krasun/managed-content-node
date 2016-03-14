@@ -88,14 +88,36 @@ class PageCategoryRepository
     }
 
     /**
-     * @param string $slug
+     * @param int $id
      *
      * @return PageCategoryRepository
      */
-    public function deleteBySlug($slug)
+    public function deleteById($id)
     {
-        $this->connection->delete('`managed_content_node_page_category`', ['slug' => $slug]);
+        $this->connection->delete('`managed_content_node_page_category`', ['id' => $id]);
 
         return $this;
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return PageCategory
+     */
+    public function find($id)
+    {
+        $pageCategoryRow = $this->connection->fetchAssoc(
+            'SELECT `id`, `slug`, `title`
+             FROM `managed_content_node_page_category`
+             WHERE `id` = :id
+             LIMIT 1',
+            ['id' => $id]
+        );
+
+        if (null === $pageCategoryRow) {
+            return null;
+        }
+
+        return new PageCategory($pageCategoryRow['id'], $pageCategoryRow['slug'], $pageCategoryRow['title']);
     }
 }

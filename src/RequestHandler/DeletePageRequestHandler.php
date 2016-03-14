@@ -2,6 +2,7 @@
 
 namespace Asopeli\ManagedContentNode\RequestHandler;
 
+use Asopeli\ManagedContentNode\Entity\Repository\PageRepository;
 use Asopeli\ManagedContentNode\Request\RequestHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,11 +13,30 @@ use Symfony\Component\HttpFoundation\Response;
 class DeletePageRequestHandler implements RequestHandlerInterface
 {
     /**
+     * @var PageRepository
+     */
+    private $pageRepository;
+
+    /**
+     * @param PageRepository $pageRepository
+     */
+    public function __construct(PageRepository $pageRepository)
+    {
+        $this->pageRepository = $pageRepository;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function matches(Request $request)
     {
-//        return ($request->isMethod('DELETE') && $request->getPathInfo());
+        return (
+            $request->isMethod('DELETE')
+            && 'json' == $request->getContentType()
+            && in_array('application/json', $request->getAcceptableContentTypes())
+            && preg_match('/^\/pages\/(\d+)\/?$/', $request->getPathInfo())
+        );
+
     }
 
     /**
@@ -24,6 +44,11 @@ class DeletePageRequestHandler implements RequestHandlerInterface
      */
     public function handle(Request $request)
     {
-        // TODO: Implement handle() method.
+        preg_match('/^\/pages\/(\d+)\/?$/', $request->getPathInfo(), $parameters);
+        list($pathInfo, $id) = $parameters;
+
+        $this->pageRepository->deleteById($id);
+
+        return new Response('', 204);
     }
 }

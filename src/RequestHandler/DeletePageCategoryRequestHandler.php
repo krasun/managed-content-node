@@ -34,7 +34,7 @@ class DeletePageCategoryRequestHandler implements RequestHandlerInterface
             $request->isMethod('DELETE')
             && 'json' == $request->getContentType()
             && in_array('application/json', $request->getAcceptableContentTypes())
-            && preg_match('/^\/page-categories\/([A-Za-z0-9А-яЁё]+)\/?$/', $request->getPathInfo())
+            && preg_match('/^\/page-categories\/(\d+)\/?$/', $request->getPathInfo())
         );
 
     }
@@ -44,10 +44,10 @@ class DeletePageCategoryRequestHandler implements RequestHandlerInterface
      */
     public function handle(Request $request)
     {
-        preg_match('/^\/page-categories\/([A-Za-z0-9А-яЁё]+)\/?$/', $request->getPathInfo(), $parameters);
-        list($pathInfo, $slug) = $parameters;
+        preg_match('/^\/page-categories\/(\d+)\/?$/', $request->getPathInfo(), $parameters);
+        list($pathInfo, $id) = $parameters;
 
-        $this->pageCategoryRepository->deleteBySlug($slug);
+        $this->pageCategoryRepository->deleteById($id);
 
         return new Response('', 204);
     }

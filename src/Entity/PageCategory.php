@@ -65,7 +65,7 @@ class PageCategory
      */
     public function equals(PageCategory $another)
     {
-        return ($this->getSlug() == $another->getSlug());
+        return ($this->getId() == $another->getId());
     }
 
     /**

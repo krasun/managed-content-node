@@ -63,6 +63,18 @@ class Page
     }
 
     /**
+     * @param string $slug
+     *
+     * @return Page
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getSlug()
@@ -71,11 +83,35 @@ class Page
     }
 
     /**
+     * @param string $title
+     *
+     * @return Page
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * @param string $content
+     *
+     * @return Page
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
     }
 
     /**
@@ -95,6 +131,18 @@ class Page
     }
 
     /**
+     * @param PageCategory $pageCategory
+     *
+     * @return Page
+     */
+    public function setPageCategory(PageCategory $pageCategory)
+    {
+        $this->pageCategory = $pageCategory;
+
+        return $this;
+    }
+
+    /**
      * @return PageCategory
      */
     public function getPageCategory()
@@ -109,6 +157,21 @@ class Page
      */
     public function equals(Page $another)
     {
-        return ($this->getSlug() == $another->getSlug());
+        return ($this->getId() == $another->getId());
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'id' => $this->getId(),
+            'slug' => $this->getSlug(),
+            'title' => $this->getTitle(),
+            'content' => $this->getContent(),
+            'publishedAt' => $this->getPublishedAt(),
+            'pageCategory' => $this->getPageCategory()->toArray()
+        ];
     }
 }

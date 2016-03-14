@@ -62,7 +62,6 @@ class AppKernel
             $templating->addGlobal($variableName, $variableValue);
         }
 
-
         $connection = \Doctrine\DBAL\DriverManager::getConnection($this->parameters['database'], new \Doctrine\DBAL\Configuration());
         $pageRepository = new \Asopeli\ManagedContentNode\Entity\Repository\PageRepository($connection);
         $pageCategoryRepository = new \Asopeli\ManagedContentNode\Entity\Repository\PageCategoryRepository($connection);
@@ -75,13 +74,13 @@ class AppKernel
                 new RequestHandler\GetSitemapHandler()
             )
             ->registerHandler(
-                new RequestHandler\PostPageRequestHandler()
+                new RequestHandler\PostPageRequestHandler($pageRepository, $pageCategoryRepository)
             )
             ->registerHandler(
-                new RequestHandler\PutPageRequestHandler()
+                new RequestHandler\PutPageRequestHandler($pageRepository, $pageCategoryRepository)
             )
             ->registerHandler(
-                new RequestHandler\DeletePageRequestHandler()
+                new RequestHandler\DeletePageRequestHandler($pageRepository)
             )
             ->registerHandler(
                 new RequestHandler\GetPageRequestHandler($pageRepository, $templating)
