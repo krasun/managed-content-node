@@ -1,16 +1,18 @@
 <?php
 
-namespace Asopeli\ManagedContentNode\RequestHandler;
+namespace Asopeli\ManagedContentNode\RequestHandler\PageCategory;
 
+use Asopeli\ManagedContentNode\Entity\PageCategory;
 use Asopeli\ManagedContentNode\Entity\Repository\PageCategoryRepository;
 use Asopeli\ManagedContentNode\Request\RequestHandlerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Handles page category delete requests.
+ * Handling page category creating requests.
  */
-class DeletePageCategoryRequestHandler implements RequestHandlerInterface
+class PostPageCategoryRequestHandler implements RequestHandlerInterface
 {
     /**
      * @var PageCategoryRepository
@@ -31,12 +33,11 @@ class DeletePageCategoryRequestHandler implements RequestHandlerInterface
     public function matches(Request $request)
     {
         return (
-            $request->isMethod('DELETE')
+            $request->isMethod('POST')
             && 'json' == $request->getContentType()
             && in_array('application/json', $request->getAcceptableContentTypes())
-            && preg_match('/^\/page-categories\/(\d+)\/?$/', $request->getPathInfo())
+            && preg_match('/^\/page-categories\/?$/', $request->getPathInfo())
         );
-
     }
 
     /**
@@ -44,11 +45,11 @@ class DeletePageCategoryRequestHandler implements RequestHandlerInterface
      */
     public function handle(Request $request)
     {
-        preg_match('/^\/page-categories\/(\d+)\/?$/', $request->getPathInfo(), $parameters);
-        list($pathInfo, $id) = $parameters;
+        $content = json_decode($request->getContent(), true);
+        $pageCategory = new PageCategory(null, $content['slug'], $content['title']);
 
-        $this->pageCategoryRepository->deleteById($id);
+        $this->pageCategoryRepository->store($pageCategory);
 
-        return new Response('', 204);
+        return new JsonResponse($pageCategory->toArray());
     }
 }

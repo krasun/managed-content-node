@@ -1,27 +1,33 @@
 <?php
 
-namespace Asopeli\ManagedContentNode\RequestHandler;
+namespace Asopeli\ManagedContentNode\RequestHandler\Page;
 
-use Symfony\Component\HttpFoundation\Request;
+use Asopeli\ManagedContentNode\Entity\Repository\PageCategoryRepository;
 use Asopeli\ManagedContentNode\Entity\Repository\PageRepository;
 use Asopeli\ManagedContentNode\Request\RequestHandlerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Templating\EngineInterface;
 
 /**
- * Responsible for getting page representations.
+ * Responsible for getting page collection representations.
  */
-class GetPageRequestHandler implements RequestHandlerInterface
+class GetPagesRequestHandler implements RequestHandlerInterface
 {
     /**
      * Regular expression for matching current handler.
      */
-    const ROUTE_REGEX = '/^\/(\d{4})\/(\d{2})\/(\d{2})\/([A-Za-z0-9А-яЁё]+)\/?$/u';
+    const ROUTE_REGEX = '/^\/category\/([A-Za-z0-9А-яЁё]+)\/?$/u';
 
     /**
      * @var PageRepository
      */
     private $pageRepository;
+
+    /**
+     * @var PageCategoryRepository
+     */
+    private $pageCategoryRepository;
 
     /**
      * @var EngineInterface
@@ -30,14 +36,17 @@ class GetPageRequestHandler implements RequestHandlerInterface
 
     /**
      * @param PageRepository $pageRepository
+     * @param PageCategoryRepository $pageCategoryRepository
      * @param EngineInterface $templating
      */
     public function __construct(
         PageRepository $pageRepository,
+        PageCategoryRepository $pageCategoryRepository,
         EngineInterface $templating
     )
     {
         $this->pageRepository = $pageRepository;
+        $this->pageCategoryRepository = $pageCategoryRepository;
         $this->templating = $templating;
     }
 
@@ -58,17 +67,18 @@ class GetPageRequestHandler implements RequestHandlerInterface
     public function handle(Request $request)
     {
         preg_match(self::ROUTE_REGEX, urldecode($request->getPathInfo()), $parameters);
-        list($pathInfo, $year, $month, $day, $slug) = $parameters;
+        list($pathInfo, $pageCategorySlug) = $parameters;
 
-        $page = $this->pageRepository->findOneByDateAndSlug((new \DateTime())->setDate($year, $month, $day), $slug);
-        if (null === $page) {
+        $pageCategory = $this->pageCategoryRepository->findOneBySlug($pageCategorySlug);
+        if (null === $pageCategory) {
             return new Response('', Response::HTTP_NOT_FOUND);
         }
 
-        $pagesInSameCategory = $this->pageRepository->findByPageCategorySlug($page->getPageCategory()->getSlug());
+        $pages = $this->pageRepository->findByPageCategorySlug($pageCategory->getSlug(), null, null);
 
-        return new Response(
-            $this->templating->render('page.html.php', ['page' => $page, 'pagesInSameCategory' => $pagesInSameCategory])
-        );
+        return new Response($this->templating->render('pages.html.php', [
+            'pages' => $pages,
+            'pageCategory' => $pageCategory
+        ]));
     }
 }

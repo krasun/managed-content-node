@@ -1,13 +1,12 @@
 <?php
 
-namespace Asopeli\ManagedContentNode\RequestHandler;
+namespace Asopeli\ManagedContentNode\RequestHandler\PageCategory;
 
 use Asopeli\ManagedContentNode\Entity\PageCategory;
 use Asopeli\ManagedContentNode\Entity\Repository\PageCategoryRepository;
 use Asopeli\ManagedContentNode\Request\RequestHandlerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Handles page category update requests.

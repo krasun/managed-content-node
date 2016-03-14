@@ -5,7 +5,8 @@ namespace Asopeli\ManagedContentNode;
 use Asopeli\ManagedContentNode\Request\RequestHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Asopeli\ManagedContentNode\RequestHandler;
+use Asopeli\ManagedContentNode\RequestHandler\Page;
+use Asopeli\ManagedContentNode\RequestHandler\PageCategory;
 use Symfony\Component\Translation\Loader\XliffFileLoader;
 
 /**
@@ -76,50 +77,50 @@ class AppKernel
             ->registerHandler(
                 new RequestHandler\SecuredRequestHandler(
                     $this->parameters['apiKey'],
-                    new RequestHandler\PostPageRequestHandler($pageRepository, $pageCategoryRepository)
+                    new Page\PostPageRequestHandler($pageRepository, $pageCategoryRepository)
                 )
             )
             ->registerHandler(
                 new RequestHandler\SecuredRequestHandler(
                     $this->parameters['apiKey'],
-                    new RequestHandler\PutPageRequestHandler($pageRepository, $pageCategoryRepository)
+                    new Page\PutPageRequestHandler($pageRepository, $pageCategoryRepository)
                 )
             )
             ->registerHandler(
                 new RequestHandler\SecuredRequestHandler(
                     $this->parameters['apiKey'],
-                    new RequestHandler\DeletePageRequestHandler($pageRepository)
+                    new Page\DeletePageRequestHandler($pageRepository)
                 )
             )
             ->registerHandler(
-                new RequestHandler\GetPageRequestHandler($pageRepository, $templating)
+                new Page\GetPageRequestHandler($pageRepository, $templating)
             )
             ->registerHandler(
-                new RequestHandler\GetPagesRequestHandler($pageRepository, $pageCategoryRepository, $templating)
+                new Page\GetPagesRequestHandler($pageRepository, $pageCategoryRepository, $templating)
             )
             ->registerHandler(
                 new RequestHandler\SecuredRequestHandler(
                     $this->parameters['apiKey'],
-                    new RequestHandler\PostPageCategoryRequestHandler($pageCategoryRepository)
-                )
-            )
-            ->registerHandler(
-                new RequestHandler\SecuredRequestHandler(
-                    $this->parameters['apiKey'],
-                    new RequestHandler\PutPageCategoryRequestHandler($pageCategoryRepository)
+                    new PageCategory\PostPageCategoryRequestHandler($pageCategoryRepository)
                 )
             )
             ->registerHandler(
                 new RequestHandler\SecuredRequestHandler(
                     $this->parameters['apiKey'],
-                    new RequestHandler\DeletePageCategoryRequestHandler($pageCategoryRepository)
+                    new PageCategory\PutPageCategoryRequestHandler($pageCategoryRepository)
                 )
             )
             ->registerHandler(
-                new RequestHandler\GetPageCategoryRequestHandler()
+                new RequestHandler\SecuredRequestHandler(
+                    $this->parameters['apiKey'],
+                    new PageCategory\DeletePageCategoryRequestHandler($pageCategoryRepository)
+                )
             )
             ->registerHandler(
-                new RequestHandler\GetPageCategoriesRequestHandler()
+                new PageCategory\GetPageCategoryRequestHandler()
+            )
+            ->registerHandler(
+                new PageCategory\GetPageCategoriesRequestHandler()
             )
         ;
     }

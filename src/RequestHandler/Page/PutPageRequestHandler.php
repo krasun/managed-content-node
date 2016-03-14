@@ -1,8 +1,7 @@
 <?php
 
-namespace Asopeli\ManagedContentNode\RequestHandler;
+namespace Asopeli\ManagedContentNode\RequestHandler\Page;
 
-use Asopeli\ManagedContentNode\Entity\Page;
 use Asopeli\ManagedContentNode\Entity\Repository\PageCategoryRepository;
 use Asopeli\ManagedContentNode\Entity\Repository\PageRepository;
 use Asopeli\ManagedContentNode\Request\RequestHandlerInterface;
@@ -10,9 +9,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Handles page create requests.
+ * Handles page update requests.
  */
-class PostPageRequestHandler implements RequestHandlerInterface
+class PutPageRequestHandler implements RequestHandlerInterface
 {
     /**
      * @var PageRepository
@@ -40,8 +39,10 @@ class PostPageRequestHandler implements RequestHandlerInterface
     public function matches(Request $request)
     {
         return (
-            $request->isMethod('POST')
-            && $request->getPathInfo() == '/pages'
+            $request->isMethod('PUT')
+            && 'json' == $request->getContentType()
+            && in_array('application/json', $request->getAcceptableContentTypes())
+            && preg_match('/^\/pages\/(\d+)\/?$/', $request->getPathInfo())
         );
     }
 
@@ -50,15 +51,18 @@ class PostPageRequestHandler implements RequestHandlerInterface
      */
     public function handle(Request $request)
     {
+        preg_match('/^\/pages\/(\d+)\/?$/', $request->getPathInfo(), $parameters);
+        list($pathInfo, $id) = $parameters;
+
         $content = json_decode($request->getContent(), true);
-        $page = new Page(
-            null,
-            $content['slug'],
-            $content['title'],
-            $content['content'],
-            new \DateTime($content['publishedAt']),
-            $this->pageCategoryRepository->find($content['pageCategoryId'])
-        );
+
+        $page = $this->pageRepository->find($id);
+        $page
+            ->setSlug($content['slug'])
+            ->setTitle($content['title'])
+            ->setContent($content['content'])
+            ->setPageCategory($this->pageCategoryRepository->find($content['pageCategoryId']))
+        ;
 
         $this->pageRepository->store($page);
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Asopeli\ManagedContentNode\RequestHandler;
+namespace Asopeli\ManagedContentNode\RequestHandler\PageCategory;
 
 use Asopeli\ManagedContentNode\Request\RequestHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
