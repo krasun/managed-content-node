@@ -4,7 +4,6 @@ namespace Asopeli\ManagedContentNode\RequestHandler;
 
 use Asopeli\ManagedContentNode\Request\RequestHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Responsible for sitemap representation.

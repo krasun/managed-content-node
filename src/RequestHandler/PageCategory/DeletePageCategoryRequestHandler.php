@@ -36,7 +36,6 @@ class DeletePageCategoryRequestHandler implements RequestHandlerInterface
             && in_array('application/json', $request->getAcceptableContentTypes())
             && preg_match('/^\/page-categories\/(\d+)\/?$/', $request->getPathInfo())
         );
-
     }
 
     /**

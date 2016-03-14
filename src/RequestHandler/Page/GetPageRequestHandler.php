@@ -29,14 +29,13 @@ class GetPageRequestHandler implements RequestHandlerInterface
     private $templating;
 
     /**
-     * @param PageRepository $pageRepository
+     * @param PageRepository  $pageRepository
      * @param EngineInterface $templating
      */
     public function __construct(
         PageRepository $pageRepository,
         EngineInterface $templating
-    )
-    {
+    ) {
         $this->pageRepository = $pageRepository;
         $this->templating = $templating;
     }

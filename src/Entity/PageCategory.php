@@ -23,7 +23,7 @@ class PageCategory
     private $title;
 
     /**
-     * @param int $id
+     * @param int    $id
      * @param string $slug
      * @param string $title
      */

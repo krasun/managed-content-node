@@ -4,7 +4,6 @@ namespace Asopeli\ManagedContentNode\RequestHandler\PageCategory;
 
 use Asopeli\ManagedContentNode\Request\RequestHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Handles page categories get requests.
@@ -26,5 +25,4 @@ class GetPageCategoriesRequestHandler implements RequestHandlerInterface
     {
         // TODO: Implement matches() method.
     }
-
 }

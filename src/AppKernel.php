@@ -57,7 +57,7 @@ class AppKernel
                 new \Knp\Bundle\TimeBundle\DateTimeFormatter(
                     $translator
                 )
-            )
+            ),
         ]);
         foreach ($this->parameters['templateVariables'] as $variableName => $variableValue) {
             $templating->addGlobal($variableName, $variableValue);

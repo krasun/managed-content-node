@@ -27,7 +27,7 @@ class PageRepository
 
     /**
      * @param \DateTime $date
-     * @param string $slug
+     * @param string    $slug
      *
      * @return Page|null
      */
@@ -68,7 +68,7 @@ class PageRepository
     }
 
     /**
-     * @param string $pageCategorySlug
+     * @param string   $pageCategorySlug
      * @param int|null $offset
      * @param int|null $limit
      *
@@ -99,7 +99,7 @@ class PageRepository
              ORDER BY `page`.`published_at` DESC
              LIMIT :offset, :limit
              ',
-            ['pageCategorySlug' => $pageCategorySlug, 'offset' => (int)$offset, 'limit' => (int)$limit],
+            ['pageCategorySlug' => $pageCategorySlug, 'offset' => (int) $offset, 'limit' => (int) $limit],
             ['pageCategorySlug' => Type::STRING, 'offset' => Type::INTEGER, 'limit' => Type::INTEGER]
         );
 

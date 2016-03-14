@@ -24,7 +24,7 @@ class PutPageRequestHandler implements RequestHandlerInterface
     private $pageCategoryRepository;
 
     /**
-     * @param PageRepository $pageRepository
+     * @param PageRepository         $pageRepository
      * @param PageCategoryRepository $pageCategoryRepository
      */
     public function __construct(PageRepository $pageRepository, PageCategoryRepository $pageCategoryRepository)

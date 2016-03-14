@@ -35,16 +35,15 @@ class GetPagesRequestHandler implements RequestHandlerInterface
     private $templating;
 
     /**
-     * @param PageRepository $pageRepository
+     * @param PageRepository         $pageRepository
      * @param PageCategoryRepository $pageCategoryRepository
-     * @param EngineInterface $templating
+     * @param EngineInterface        $templating
      */
     public function __construct(
         PageRepository $pageRepository,
         PageCategoryRepository $pageCategoryRepository,
         EngineInterface $templating
-    )
-    {
+    ) {
         $this->pageRepository = $pageRepository;
         $this->pageCategoryRepository = $pageCategoryRepository;
         $this->templating = $templating;
@@ -78,7 +77,7 @@ class GetPagesRequestHandler implements RequestHandlerInterface
 
         return new Response($this->templating->render('pages.html.php', [
             'pages' => $pages,
-            'pageCategory' => $pageCategory
+            'pageCategory' => $pageCategory,
         ]));
     }
 }

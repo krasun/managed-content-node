@@ -37,11 +37,11 @@ class Page
     private $pageCategory;
 
     /**
-     * @param int $id
-     * @param string $slug
-     * @param string $title
-     * @param string $content
-     * @param \DateTime $publishedAt
+     * @param int          $id
+     * @param string       $slug
+     * @param string       $title
+     * @param string       $content
+     * @param \DateTime    $publishedAt
      * @param PageCategory $pageCategory
      */
     public function __construct($id, $slug, $title, $content, \DateTime $publishedAt, PageCategory $pageCategory)
@@ -171,7 +171,7 @@ class Page
             'title' => $this->getTitle(),
             'content' => $this->getContent(),
             'publishedAt' => $this->getPublishedAt(),
-            'pageCategory' => $this->getPageCategory()->toArray()
+            'pageCategory' => $this->getPageCategory()->toArray(),
         ];
     }
 }

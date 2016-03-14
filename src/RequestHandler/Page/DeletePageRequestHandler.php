@@ -36,7 +36,6 @@ class DeletePageRequestHandler implements RequestHandlerInterface
             && in_array('application/json', $request->getAcceptableContentTypes())
             && preg_match('/^\/pages\/(\d+)\/?$/', $request->getPathInfo())
         );
-
     }
 
     /**

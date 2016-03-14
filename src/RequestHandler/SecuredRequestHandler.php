@@ -22,7 +22,7 @@ class SecuredRequestHandler implements RequestHandlerInterface
     private $decoratedRequestHandler;
 
     /**
-     * @param string $apiKey
+     * @param string                  $apiKey
      * @param RequestHandlerInterface $decoratedRequestHandler
      */
     public function __construct($apiKey, RequestHandlerInterface $decoratedRequestHandler)

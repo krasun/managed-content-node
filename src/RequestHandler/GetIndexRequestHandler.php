@@ -7,8 +7,6 @@ use Asopeli\ManagedContentNode\Entity\Repository\PageRepository;
 use Asopeli\ManagedContentNode\Request\RequestHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Route;
-use Symfony\Component\Routing\RouteCollectionBuilder;
 use Symfony\Component\Templating\EngineInterface;
 
 /**
@@ -32,16 +30,15 @@ class GetIndexRequestHandler implements RequestHandlerInterface
     private $templating;
 
     /**
-     * @param PageRepository $pageRepository
+     * @param PageRepository         $pageRepository
      * @param PageCategoryRepository $pageCategoryRepository
-     * @param EngineInterface $templating
+     * @param EngineInterface        $templating
      */
     public function __construct(
         PageRepository $pageRepository,
         PageCategoryRepository $pageCategoryRepository,
         EngineInterface $templating
-    )
-    {
+    ) {
         $this->pageRepository = $pageRepository;
         $this->pageCategoryRepository = $pageCategoryRepository;
         $this->templating = $templating;
