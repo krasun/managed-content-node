@@ -12,7 +12,7 @@ use Symfony\Component\Templating\EngineInterface;
 /**
  * Responsible for getting page collection representations.
  */
-class GetPagesRequestHandler implements RequestHandlerInterface
+class GetPagesByPageCategoryRequestHandler implements RequestHandlerInterface
 {
     /**
      * Regular expression for matching current handler.

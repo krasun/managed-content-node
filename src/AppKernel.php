@@ -96,7 +96,7 @@ class AppKernel
                 new Page\GetPageRequestHandler($pageRepository, $templating)
             )
             ->registerHandler(
-                new Page\GetPagesRequestHandler($pageRepository, $pageCategoryRepository, $templating)
+                new Page\GetPagesByPageCategoryRequestHandler($pageRepository, $pageCategoryRepository, $templating)
             )
             ->registerHandler(
                 new RequestHandler\SecuredRequestHandler(
