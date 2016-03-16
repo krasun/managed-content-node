@@ -31,7 +31,7 @@ class GetPagesRequestHandler implements RequestHandlerInterface
     public function matches(Request $request)
     {
         return (
-            $request->isMethod('PUT')
+            $request->isMethod('GET')
             && 'json' == $request->getContentType()
             && in_array('application/json', $request->getAcceptableContentTypes())
             && preg_match('/^\/pages\/?$/', $request->getPathInfo())

@@ -2,7 +2,9 @@
 
 namespace Asopeli\ManagedContentNode\RequestHandler\PageCategory;
 
+use Asopeli\ManagedContentNode\Entity\Repository\PageCategoryRepository;
 use Asopeli\ManagedContentNode\Request\RequestHandlerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -11,11 +13,16 @@ use Symfony\Component\HttpFoundation\Request;
 class GetPageCategoriesRequestHandler implements RequestHandlerInterface
 {
     /**
-     * {@inheritdoc}
+     * @var PageCategoryRepository
      */
-    public function handle(Request $request)
+    private $pageCategoryRepository;
+
+    /**
+     * @param PageCategoryRepository $pageCategoryRepository
+     */
+    public function __construct(PageCategoryRepository $pageCategoryRepository)
     {
-        // TODO: Implement handle() method.
+        $this->pageCategoryRepository = $pageCategoryRepository;
     }
 
     /**
@@ -23,6 +30,21 @@ class GetPageCategoriesRequestHandler implements RequestHandlerInterface
      */
     public function matches(Request $request)
     {
-        // TODO: Implement matches() method.
+        return (
+            $request->isMethod('GET')
+            && 'json' == $request->getContentType()
+            && in_array('application/json', $request->getAcceptableContentTypes())
+            && preg_match('/^\/page-categories\/?$/', $request->getPathInfo())
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function handle(Request $request)
+    {
+        $pageCategories = $this->pageCategoryRepository->findAll();
+
+        return new JsonResponse($pageCategories);
     }
 }
