@@ -62,6 +62,6 @@ class PostPageRequestHandler implements RequestHandlerInterface
 
         $this->pageRepository->store($page);
 
-        return new JsonResponse($page->toArray());
+        return new JsonResponse($page);
     }
 }

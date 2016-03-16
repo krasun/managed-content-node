@@ -5,7 +5,7 @@ namespace Asopeli\ManagedContentNode\Entity;
 /**
  * Represents page category.
  */
-class PageCategory
+class PageCategory implements \JsonSerializable
 {
     /**
      * @var int
@@ -78,5 +78,13 @@ class PageCategory
             'slug' => $this->getSlug(),
             'title' => $this->getTitle(),
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }

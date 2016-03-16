@@ -52,6 +52,6 @@ class PutPageCategoryRequestHandler implements RequestHandlerInterface
 
         $this->pageCategoryRepository->store($pageCategory);
 
-        return new JsonResponse($pageCategory->toArray());
+        return new JsonResponse($pageCategory);
     }
 }

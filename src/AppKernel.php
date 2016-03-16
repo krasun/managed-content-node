@@ -93,6 +93,9 @@ class AppKernel
                 )
             )
             ->registerHandler(
+                new Page\GetPagesRequestHandler($pageRepository)
+            )
+            ->registerHandler(
                 new Page\GetPageRequestHandler($pageRepository, $templating)
             )
             ->registerHandler(
