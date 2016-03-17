@@ -123,7 +123,7 @@ class AppKernel
                 new PageCategory\GetPageCategoryRequestHandler()
             )
             ->registerHandler(
-                new PageCategory\GetPageCategoriesRequestHandler()
+                new PageCategory\GetPageCategoriesRequestHandler($pageCategoryRepository)
             )
         ;
     }
