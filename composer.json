@@ -10,7 +10,8 @@
         "symfony/templating": "~3.0",
         "knplabs/knp-time-bundle": "~1.5",
         "symfony/translation": "~3.0",
-        "symfony/routing": "~3.0"
+        "symfony/routing": "~3.0",
+        "phpunit/phpunit": "~4.0"
     },
     "config": {
         "bin-dir": "bin"
