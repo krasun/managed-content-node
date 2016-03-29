@@ -89,6 +89,10 @@
             #pages-in-same-category {
                 border-top: 1px solid #e5e5e5;
             }
+
+            #pages-by-category .published {
+                color: #999;
+            }
         </style>
     </head>
     <body>
