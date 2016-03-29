@@ -1,7 +1,7 @@
 <?php $view->extend('layout.html.php') ?>
 
 <?php $view['slots']->start('content') ?>
-    <div class="row index">
+    <div id="index-page" class="row index">
         <div class="col-lg-6">
             <?php $index = 0 ?>
             <?php foreach ($pageCategories as $pageCategory): ?>
@@ -10,7 +10,10 @@
                     <ul class="list-unstyled">
                         <?php foreach ($pages as $page): ?>
                             <?php if ($page->getPageCategory()->equals($pageCategory)): ?>
-                                <li><a href="/<?php echo $this->escape($page->getPublishedAt()->format('Y/m/d') . '/' . $page->getSlug() . '/')  ?>"><?php echo $this->escape($page->getTitle()) ?></a></li>
+                                <li>
+                                    <a href="/<?php echo $this->escape($page->getPublishedAt()->format('Y/m/d') . '/' . $page->getSlug() . '/')  ?>"><?php echo $this->escape($page->getTitle()) ?></a>
+                                    <span class="published">(<time><?php echo $this->escape($view['time']->diff($page->getPublishedAt())) ?></time>)</span>
+                                </li>
                             <?php endif?>
                         <?php endforeach ?>
                     </ul>
@@ -27,7 +30,10 @@
                         <ul class="list-unstyled">
                             <?php foreach ($pages as $page): ?>
                                 <?php if ($page->getPageCategory()->equals($pageCategory)): ?>
-                                    <li><a href="/<?php echo $this->escape($page->getPublishedAt()->format('Y/m/d') . '/' . $page->getSlug() . '/') ?>"><?php echo $this->escape($page->getTitle()) ?></a></li>
+                                    <li>
+                                        <a href="/<?php echo $this->escape($page->getPublishedAt()->format('Y/m/d') . '/' . $page->getSlug() . '/') ?>"><?php echo $this->escape($page->getTitle()) ?></a>
+                                        <span class="published">(<time><?php echo $this->escape($view['time']->diff($page->getPublishedAt())) ?></time>)</span>
+                                    </li>
                                 <?php endif?>
                             <?php endforeach ?>
                         </ul>
