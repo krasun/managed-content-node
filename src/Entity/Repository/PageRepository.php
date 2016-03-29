@@ -95,7 +95,7 @@ class PageRepository
                 `managed_content_node_page` `page` JOIN `managed_content_node_page_category` `page_category`
                     ON `page`.`page_category_id` = `page_category`.`id`
              WHERE
-                `page`.`page_category_slug` = :pageCategorySlug
+                `page_category`.`slug` = :pageCategorySlug
              ORDER BY `page`.`published_at` DESC
              LIMIT :offset, :limit
              ',
