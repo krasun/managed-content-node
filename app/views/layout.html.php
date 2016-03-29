@@ -73,6 +73,22 @@
             a.index-link:visited {
                 text-decoration: none !important;
             }
+
+            #page-meta {
+                color: #999;
+            }
+
+            #page-content {
+                margin: 20px 0;
+            }
+
+            #pages-in-same-category{
+                padding-top: 10px;
+            }
+
+            #pages-in-same-category {
+                border-top: 1px solid #e5e5e5;
+            }
         </style>
     </head>
     <body>
