@@ -1,7 +1,7 @@
 {
     "name": "asopeli/managed-content-node",
     "type": "project",
-    "description": "Managed content node",
+    "description": "Simple content node managed only by API",
     "license": "MIT",
     "require": {
         "doctrine/dbal": "~2.5",
@@ -9,9 +9,8 @@
         "symfony/http-foundation": "~3.0",
         "symfony/templating": "~3.0",
         "knplabs/knp-time-bundle": "~1.5",
-        "symfony/translation": "~3.0",
-        "symfony/routing": "~3.0",
-        "phpunit/phpunit": "~4.0"
+        "symfony/translation": "~2.1",
+        "symfony/routing": "~3.0"
     },
     "config": {
         "bin-dir": "bin"
@@ -26,5 +25,9 @@
         "psr-4": {
             "Asopeli\\ManagedContentNode\\": "src/"
         }
+    },
+    "require-dev": {
+        "behat/behat": "~3.1",
+        "phpunit/phpunit": "~4.0"
     }
 }
