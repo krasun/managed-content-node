@@ -69,7 +69,9 @@ class Page implements \JsonSerializable
      */
     public function setSlug($slug)
     {
-        // @todo clear and sanitize slug
+        $slug = mb_strtolower($slug);
+        $slug = preg_replace('/[^A-Za-z0-9-]+/u', '-', $slug);
+        $slug = trim($slug, "-");
 
         $this->slug = $slug;
 
