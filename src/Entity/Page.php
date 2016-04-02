@@ -69,6 +69,8 @@ class Page implements \JsonSerializable
      */
     public function setSlug($slug)
     {
+        // @todo clear and sanitize slug
+
         $this->slug = $slug;
 
         return $this;
